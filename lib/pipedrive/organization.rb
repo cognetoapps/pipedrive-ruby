@@ -5,8 +5,9 @@ module Pipedrive
       Person.all(get "#{resource_path}/#{id}/persons")
     end
 
-    def deals
-      Deal.all(get "#{resource_path}/#{id}/deals")
+    def deals(status = nil)
+      query = status.present? ? { status: status } : nil
+      Deal.all(get "#{resource_path}/#{id}/deals", query: query)
     end
 
     class << self
