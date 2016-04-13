@@ -2,6 +2,11 @@
 
 require 'rubygems'
 require 'bundler'
+require 'jeweler'
+require 'rake'
+require 'rake/testtask'
+require 'rdoc/task'
+
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -9,9 +14,7 @@ rescue Bundler::BundlerError => e
   $stderr.puts "Run `bundle install` to install missing gems"
   exit e.status_code
 end
-require 'rake'
 
-require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "pipedrive-ruby"
@@ -21,11 +24,11 @@ Jeweler::Tasks.new do |gem|
   gem.description = %Q{Ruby wrapper for the Pipedrive API}
   gem.email = "jan@general-scripting.com"
   gem.authors = ["Jan Schwenzien", "Waldemar Kusnezow", "Joel Courtney"]
+  gem.version = File.read('VERSION')
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
 
-require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
   test.libs << 'lib' << 'test'
   test.pattern = 'test/**/test_*.rb'
@@ -34,7 +37,6 @@ end
 
 task :default => :test
 
-require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
